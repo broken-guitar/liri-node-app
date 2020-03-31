@@ -1,53 +1,90 @@
 require("dotenv").config();
-var Spotify = require('node-spotify-api');
 var axios = require("axios");
+var inquirer = require("inquirer");
 var keys = require("./keys.js");
+var moment = require("moment")
+var Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
 
-// var stdin = process.openStdin();
-var readline = require('readline');
-var rl = readline.createInterface(process.stdin, process.stdout);
-rl.setPrompt("Input>");
-rl.prompt();
+var liri = [];
+liri.cmdList = [{ 
+      type: "rawlist", name: "selection", message: "Select an option",
+      choices: [
+         "concert-this",
+         "spotify-this-song",
+         "movie-this",
+         "do-what-it-says",
+         "quit"
+      ],
+      default: 4
+}];
+liri.bandInput = [{
+   name: "artistName",
+   message: "Enter artist/band name",
+   validate: val => {
+      return isEmpty(val) ? "Please enter an artist/band name" :  true // if not empty, return true (valid input)
+   },
+   filter: val => { return val.trim(); } 
+}];
+liri.songInput = [{
+   name: "songName",
+   message: "Enter song name",
+   validate: val => {
+      return isEmpty(val) ? "Please enter a song name" :  true
+   },
+   filter: val => { return val.trim(); } 
+}];
 
+liri.showMenu = function() {
+   inquirer
+      .prompt(liri.cmdList)
+      .then(answers => {
+         // prompt user for band, song, or movie depending on list selection
+         switch (answers.selection) {
+            case "concert-this":
+               inquirer.prompt(liri.bandInput).then(answers => liri.getConcert(answers.artistName));
+               break;
+            case "spotify-this-song":
+               inquirer.prompt(liri.songInput).then(answers => liri.getSong(answers.songName));
+               break;
+            case "movie-this":
+               // inquirer.prompt(liri.movieInput).then(answers => getMovie(answers.songName));
+               break;
+            case "do-what-it-says":
+               doFile();
+               break;
+            case "quit":
+               break;
+            default:
+               break;
+         }
+      });
 
-rl.on("line", function(line){
-    let input = line.split(" ");
-    switch (input[0].toLowerCase()) {
-        case "concert-this":
-            break;
-        case "spotify-this-song":
-            break;
-        case "movie-this":
-            break;
-        case "do-what-it-says":
-            break;
-        case "exit":
-            rl.close();
-        default:
-            console.log("\r")
-            console.log("Usage:\r")
-            console.log("\tnode liri.js concert-this <artist/band name here>")
-            console.log("\tnode liri.js movie-this <movie name here>")
-            console.log("\tnode liri.js do-what-it-says")
-            console.log("\r")
-    }
-       // switch (line)
-    // console.log("You entered: " + line);
-    rl.prompt();
-})
+}
 
-rl.on("close", function() {
-    console.log("exiting app")
-    process.exit();
-})
+liri.showMenu();
 
-// stdin.addListener("data", function(d) {
-//     console.log("you entered: [" + 
-//         d.toString().trim() + "]");
-//     console.log(d);
-//   });
-
+liri.getConcert = function(artistName) {
+   axios
+      .get("https://rest.bandsintown.com/artists/" + artistName + "/events?app_id=codingbootcamp")
+      .then( response => {
+         if (response.data.length < 1) {
+            console.log("\n\tSorry, no upcoming events found. :(\n")
+         } else {
+            console.log("\nUpcoming Events:\n")
+            for (e of response.data) {         
+               console.log(" Venue:\t\t", e.venue.name);
+               console.log(" Location:\t", e.venue.city, e.venue.region, e.venue.country)
+               console.log(" Date:\t\t", moment(e.datetime).format("MM/DD/YYYY"));
+               console.log("\r\n--------------\n");
+            }
+         }
+         liri.showMenu();
+      })
+      .catch( error => {
+         liri.showAxiosErr(error);
+      });
+}
 
 function getMovie() {
     // Then run a request with axios to the OMDB API with the movie specified
@@ -75,4 +112,31 @@ function getMovie() {
         }
         console.log(error.config);
     });
+}
+
+// axiom error handling
+liri.showAxiosErr = function(error) {
+   if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      console.log("---------------Data---------------");
+      console.log(error.response.data);
+      console.log("---------------Status---------------");
+      console.log(error.response.status);
+      console.log("---------------Status---------------");
+      console.log(error.response.headers);
+   } else if (error.request) {
+      // The request was made but no response was received
+      // `error.request` is an object that comes back with details pertaining to the error that occurred.
+      console.log(error.request);
+   } else {
+      // Something happened in setting up the request that triggered an Error
+      console.log("Error", error.message);
+   }
+   console.log(error.config);
+}
+
+// check if string is empty
+function isEmpty(string) {
+   return string.match(/^\s*$/);
 }
