@@ -1,5 +1,6 @@
 require("dotenv").config();
 const axios = require("axios");
+const fs = require("fs");
 const inquirer = require("inquirer");
 const keys = require("./keys.js");
 const moment = require("moment")
@@ -7,6 +8,8 @@ const open = require('open');
 const Spotify = require('node-spotify-api');
 const spotify = new Spotify(keys.spotify);
 
+const divider = "\n\n################################################################\n\n"
+var commandline = process.argv[2];
 var liri = [];
 
 liri.cmdList = [{ 
@@ -76,12 +79,6 @@ liri.showMenu = function() {
       });
 }
 
-// - - INITIALIZE
-
-liri.showMenu();
-
-// - - FUNCTIONS 
-
 liri.getConcert = function(artistName) {
    axios
       .get("https://rest.bandsintown.com/artists/" + artistName + "/events?app_id=codingbootcamp")
@@ -89,18 +86,23 @@ liri.getConcert = function(artistName) {
          if (response.data.length < 1) {
             console.log("\n\tSorry, no upcoming events found. :(\n")
          } else {
-            console.log("\nUpcoming Events:\n")
-            for (e of response.data) {     
-               console.log("\r--------------");    
-               console.log(" Venue:\t\t", e.venue.name);
-               console.log(" Location:\t", e.venue.city, e.venue.region, e.venue.country)
-               console.log(" Date:\t\t", moment(e.datetime).format("MM/DD/YYYY"));
+            let concertData = "\r\nUpcoming Events for " + artistName + ":\r\n";
+            for (e of response.data) {
+               concertData += [
+                  "\n--------------",
+                  " Venue:\t\t" + e.venue.name,
+                  " Location:\t" + e.venue.city + " " + e.venue.region + " " + e.venue.country,
+                  " Date:\t\t" + moment(e.datetime).format("MM/DD/YYYY")
+               ].join("\n");
             }
+            liri.output(concertData, "log.txt");
          }
-         liri.showMenu();
       })
       .catch( error => {
          liri.showAxiosErr(error);
+      })
+      .finally(() => {
+         liri.showMenu();
       });
 }
 
@@ -115,19 +117,20 @@ liri.getSong = function(songName) {
             return console.log("Error occurred: " + err);
          }
          if (data) {
+            let songData = "";
             let firstTrack = data.tracks.items[0];
             let allArtists = firstTrack.artists.map(artist => artist.name).join(", ");
             let previewUrl = (firstTrack.preview_url) ? firstTrack.preview_url : "N/A";
-            console.log(firstTrack);
-            console.log("\nSong info:\n")
-            console.log(" Artist(s):\t", allArtists);
-            console.log(" Song:\t\t", firstTrack.name);
-            console.log(" Preview:\t", previewUrl);
-            console.log(" Album:\t\t", firstTrack.album.name);
-            console.log("\r\n--------------\n");
+            songData = [
+               "\nSong info:\n",
+               " Artist(s):\t" + allArtists,
+               " Song:\t\t" + firstTrack.name,
+               " Preview:\t" + previewUrl,
+               " Album:\t\t" + firstTrack.album.name
+            ].join("\n");
+            liri.output(songData, "log.txt");
             liri.askPreviewUrl(previewUrl); // ask user to listen to song preview
          }
-         
       });
 }
 
@@ -138,41 +141,46 @@ liri.getMovie = function(movieTitle) {
          if (response.data.length < 1) {
             console.log("\n\tSorry, no movies found. :(\n")
          } else {
+            let movieData = "";
             let movie = response.data;
-            console.log(movie.Ratings);
-            let rotten = movie.Ratings.find(rating => rating.Source == "Rotten Tomatoes") || "N/A";
-            console.log("\nMovie info:")
-            console.log("\r------------------------\r");
-            console.log(" Title:\t\t\t", movie.Title);
-            console.log(" Year:\t\t\t", movie.Year)
-            console.log(" IMDB Rating:\t\t", movie.imdbRating);
-            console.log(" Rotten Tomatoes Rating:", rotten.Value);
-            console.log(" Country:\t\t", movie.Country);
-            console.log(" Language:\t\t", movie.Language);
-            console.log(" Actors:\t\t", movie.Actors);
-            console.log(" Plot:\t\t\t", movie.Plot);
-            
+            let rotten = movie.Ratings.find(rating => rating.Source == "Rotten Tomatoes") || "N/A";   
+            movieData = [
+               "\nMovie info:",
+               "------------------------",
+               " Title:\t\t\t" +  movie.Title,
+               " Year:\t\t\t" +  movie.Year,
+               " IMDB Rating:\t\t" +  movie.imdbRating,
+               " Rotten Tomatoes Rating:" +  rotten.Value,
+               " Country:\t\t" +  movie.Country,
+               " Language:\t\t" +  movie.Language,
+               " Actors:\t\t" +  movie.Actors,
+               " Plot:\t\t\t" +  movie.Plot
+            ].join("\n");
+            liri.output(movieData, "log.txt");
          }
-         liri.showMenu();
-    })
-    .catch(function(error) {
+      })
+      .catch(function(error) {
         liri.showAxiosErr(error);
-    });
-
-   
+      })
+      .finally(() => {
+         liri.showMenu();
+      });
 }
 
 // axiom error handling
 liri.showAxiosErr = function(error) {
    if (error.response) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx
-      console.log("---------------Data---------------");
-      console.log(error.response.data);
-      console.log("---------------Status---------------");
-      console.log(error.response.status);
-      console.log("---------------Status---------------");
-      console.log(error.response.headers);
+      
+      console.log("Error", error.message);
+      
+      // // The request was made and the server responded with a status code
+      // // that falls out of the range of 2xx
+      // console.log("---------------Data---------------");
+      // console.log(error.response.data);
+      // console.log("---------------Status---------------");
+      // console.log(error.response.status);
+      // console.log("---------------Status---------------");
+      // console.log(error.response.headers);
    } else if (error.request) {
       // The request was made but no response was received
       // `error.request` is an object that comes back with details pertaining to the error that occurred.
@@ -184,13 +192,8 @@ liri.showAxiosErr = function(error) {
    console.log(error.config);
 }
 
-// check if string is empty
-function isEmpty(string) {
-   return string.match(/^\s*$/);
-}
-
 // ask to open song preview url if available
-liri.askPreviewUrl = function (url) {
+liri.askPreviewUrl = function (url, callback) {
    if (url !== "N/A" && url.substr(0,17) == "https://p.scdn.co") {
       inquirer.prompt({
          type: "confirm",
@@ -202,9 +205,38 @@ liri.askPreviewUrl = function (url) {
          }
       }).then(answers => {
             if (answers.listen) openUrl(url);
-            liri.showMenu();
-      });
+      })
+      .finally(() => liri.showMenu());
+   } else {
+      liri.showMenu();
    }
+}
+
+liri.output = function(data, file) {
+   console.log(data);
+   if (file) {
+      fs.appendFile(file, data + divider, function(err) {
+         if (err) throw err;
+      })
+   }
+}
+
+liri.appendLog = function(data) {
+   fs.appendFile("log.txt", data + divider, function(err) {
+      if (err) throw err;
+    });
+}
+// - - INITIALIZE
+
+liri.showMenu();
+
+// - - FUNCTIONS 
+
+
+
+// check if string is empty
+function isEmpty(string) {
+   return string.match(/^\s*$/);
 }
 // open url function
 async function openUrl(url) {
