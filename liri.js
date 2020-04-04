@@ -6,13 +6,20 @@ const keys = require("./keys.js");
 const moment = require("moment")
 const open = require('open');
 const Spotify = require('node-spotify-api');
-const spotify = new Spotify(keys.spotify);
 
-const fromFile = true;
-const divider = "\n\n################################################################\n\n"
+const spotify = new Spotify(keys.spotify);
+const logFile = "log.txt";
+const divider = "\n\n################################################################\n\n";
+const usageText = [
+   "\r\nLiri command was not recognized!",
+   "\nUsage: node liri.js {concert-this|spotify-this-song|movie-this|do-what-it-says} <search term>",
+   "Examples:",
+   "\tnode liri.js concert-this Kishi Bashi",
+   "\tnode liri.js spotify-this-song You've Got Time\r\n"
+].join("\n");
+
 var command = process.argv[2];
 var term = process.argv[3];
-
 var liri = [];
 
 liri.cmdList = [{ 
@@ -70,7 +77,7 @@ liri.getConcert = function(artistName) {
       .get("https://rest.bandsintown.com/artists/" + artistName + "/events?app_id=codingbootcamp")
       .then(response => {
          if (response.data.length < 1) {
-            console.log("\n\tSorry, no upcoming events found. :(\n")
+            liri.output("\n\tSorry, no upcoming events found for '" + artistName + "'.\n", logFile);
          } else {
             let concertData = "\r\nUpcoming Events for " + artistName + ":\r\n";
             for (e of response.data) {
@@ -81,7 +88,7 @@ liri.getConcert = function(artistName) {
                   " Date:\t\t" + moment(e.datetime).format("MM/DD/YYYY")
                ].join("\n");
             }
-            liri.output(concertData, "log.txt");
+            liri.output(concertData, logFile);
          }
       })
       .catch( error => {
@@ -100,7 +107,7 @@ liri.getSong = function(songName) {
       },
       function(err, data) {
          if (err) {
-            return console.log("Error occurred: " + err);
+            return liri.output("Error occurred: " + err, logFile);
          }
          if (data) {
             let songData = "";
@@ -114,7 +121,7 @@ liri.getSong = function(songName) {
                " Preview:\t" + previewUrl,
                " Album:\t\t" + firstTrack.album.name
             ].join("\n");
-            liri.output(songData, "log.txt");
+            liri.output(songData, logFile);
             liri.askPreviewUrl(previewUrl); // ask user to listen to song preview
          }
       });
@@ -124,8 +131,8 @@ liri.getMovie = function(movieTitle) {
     // Then run a request with axios to the OMDB API with the movie specified
     axios.get("http://www.omdbapi.com/?t=" + movieTitle + "&y=&plot=short&apikey=trilogy")
       .then(response => {  
-         if (response.data.length < 1) {
-            console.log("\n\tSorry, no movies found. :(\n")
+         if (response.data.length < 1 || response.Response === false) {
+            liri.output("\n\tSorry, no movies found for '" + movieTitle + "'.\n", logFile);
          } else {
             let movieData = "";
             let movie = response.data;
@@ -142,7 +149,7 @@ liri.getMovie = function(movieTitle) {
                " Actors:\t\t" +  movie.Actors,
                " Plot:\t\t\t" +  movie.Plot
             ].join("\n");
-            liri.output(movieData, "log.txt");
+            liri.output(movieData, logFile);
          }
       })
       .catch(function(error) {
@@ -156,26 +163,18 @@ liri.getMovie = function(movieTitle) {
 // axiom error handling
 liri.showAxiosErr = function(error) {
    if (error.response) {
-      
-      console.log("Error", error.message);
-      
-      // // The request was made and the server responded with a status code
-      // // that falls out of the range of 2xx
-      // console.log("---------------Data---------------");
-      // console.log(error.response.data);
-      // console.log("---------------Status---------------");
-      // console.log(error.response.status);
-      // console.log("---------------Status---------------");
-      // console.log(error.response.headers);
+      liri.output("\nError\t" + error.message, logFile);
+   
    } else if (error.request) {
       // The request was made but no response was received
       // `error.request` is an object that comes back with details pertaining to the error that occurred.
-      console.log(error.request);
+      liri.output(error.request, logFile);
+   
    } else {
       // Something happened in setting up the request that triggered an Error
-      console.log("Error", error.message);
+      liri.output("Error", error.message, logFile);
    }
-   console.log(error.config);
+   liri.output(error.config, logFile);
 }
 
 // ask to open song preview url if available
@@ -208,7 +207,7 @@ liri.output = function(data, file) {
 }
 
 liri.appendLog = function(data) {
-   fs.appendFile("log.txt", data + divider, function(err) {
+   fs.appendFile(logFile, data + divider, function(err) {
       if (err) throw err;
     });
 }
@@ -217,10 +216,10 @@ liri.doFile = function() {
    fs.readFile("random.txt", "utf8", (err, data) => {
       if (err) throw err;
       let cmd = data.split(" ")[0];
-      let arr = data.split(" ");
-      arr.splice(0,1);
-      let term = arr.join(" ");
-      liri.cmdSwitch(cmd, term);
+      if (cmd != "do-what-it-says") {
+         let term = data.split(" ").splice(1).join(" ");
+         liri.cmdSwitch(cmd, term);
+      }
    });
 }
 
@@ -228,22 +227,19 @@ liri.checkInput = function(cmd, term) {
    cmd = (cmd) ? cmd.trim() : "";
    term = (term) ? term.trim() : "";
    // handle valid command/arguments,
-   // otherwise show usage text and inquirer menu interace to user
+   // otherwise show usage text and menu interace to user
    if(cmd === "do-what-it-says") {
-      liri.cmdSwitch(cmd, term);
+      liri.cmdSwitch(cmd);
    } else if (cmd && term) {
       liri.cmdSwitch(cmd, term);
    } else {
-      console.log("\nUsage: node liri.js {concert-this|spotify-this-song|movie-this|do-what-it-says} <search term>");
-      console.log("Examples:");
-      console.log("\tnode liri.js concert-this Kishi Bashi");
-      console.log("\tnode liri.js spotify-this-song You've Got Time\r\n");
+      liri.output(usageText);
       liri.showMenu();
    }
 }
 
-// handle each command, if user doesn't provide a search term then ask for it
-liri.cmdSwitch = function(cmd, term, fromFile) {
+// handle each command; if user doesn't provide a search term then ask for it
+liri.cmdSwitch = function(cmd, term) {
    switch (cmd) {
       case "concert-this":
          if (term) {liri.getConcert(term)}
@@ -265,17 +261,18 @@ liri.cmdSwitch = function(cmd, term, fromFile) {
          }
          break;
       case "do-what-it-says":
-         if(!fromFile) liri.doFile();
+            liri.doFile();
          break;
       case "quit":
          break;
       default:
+         liri.output(usageText);
          liri.showMenu();
          break;
    }
 }
 
-// #### INITIALIZE 
+// #### START 
 
 liri.checkInput(command, term);
 

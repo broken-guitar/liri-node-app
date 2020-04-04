@@ -232,3 +232,257 @@ Movie info:
 
 ################################################################
 
+
+Movie info:
+------------------------
+ Title:			Contagion
+ Year:			2011
+ IMDB Rating:		6.7
+ Rotten Tomatoes Rating:85%
+ Country:		United Arab Emirates, USA
+ Language:		English, Mandarin, Cantonese
+ Actors:		Gwyneth Paltrow, Tien You Chui, Josie Ho, Daria Strokous
+ Plot:			Healthcare professionals, government officials and everyday people find themselves in the midst of a pandemic as the CDC works to find a cure.
+
+################################################################
+
+
+Movie info:
+------------------------
+ Title:			undefined
+ Year:			undefined
+ IMDB Rating:		undefined
+ Rotten Tomatoes Rating:undefined
+ Country:		undefined
+ Language:		undefined
+ Actors:		undefined
+ Plot:			undefined
+
+################################################################
+
+
+Movie info:
+------------------------
+ Title:			undefined
+ Year:			undefined
+ IMDB Rating:		undefined
+ Rotten Tomatoes Rating:undefined
+ Country:		undefined
+ Language:		undefined
+ Actors:		undefined
+ Plot:			undefined
+
+################################################################
+
+
+Movie info:
+------------------------
+ Title:			undefined
+ Year:			undefined
+ IMDB Rating:		undefined
+ Rotten Tomatoes Rating:undefined
+ Country:		undefined
+ Language:		undefined
+ Actors:		undefined
+ Plot:			undefined
+
+################################################################
+
+
+Movie info:
+------------------------
+ Title:			The Lion King
+ Year:			1994
+ IMDB Rating:		8.5
+ Rotten Tomatoes Rating:93%
+ Country:		USA
+ Language:		English, Swahili, Xhosa, Zulu
+ Actors:		Rowan Atkinson, Matthew Broderick, Niketa Calame-Harris, Jim Cummings
+ Plot:			A Lion cub crown prince is tricked by a treacherous uncle into thinking he caused his father's death and flees into exile in despair, only to learn in adulthood his identity and his responsibilities.
+
+################################################################
+
+
+Movie info:
+------------------------
+ Title:			The Lion King
+ Year:			1994
+ IMDB Rating:		8.5
+ Rotten Tomatoes Rating:93%
+ Country:		USA
+ Language:		English, Swahili, Xhosa, Zulu
+ Actors:		Rowan Atkinson, Matthew Broderick, Niketa Calame-Harris, Jim Cummings
+ Plot:			A Lion cub crown prince is tricked by a treacherous uncle into thinking he caused his father's death and flees into exile in despair, only to learn in adulthood his identity and his responsibilities.
+
+################################################################
+
+
+Movie info:
+------------------------
+ Title:			The Lion King
+ Year:			1994
+ IMDB Rating:		8.5
+ Rotten Tomatoes Rating:93%
+ Country:		USA
+ Language:		English, Swahili, Xhosa, Zulu
+ Actors:		Rowan Atkinson, Matthew Broderick, Niketa Calame-Harris, Jim Cummings
+ Plot:			A Lion cub crown prince is tricked by a treacherous uncle into thinking he caused his father's death and flees into exile in despair, only to learn in adulthood his identity and his responsibilities.
+
+################################################################
+
+
+Movie info:
+------------------------
+ Title:			The Lion King
+ Year:			1994
+ IMDB Rating:		8.5
+ Rotten Tomatoes Rating:93%
+ Country:		USA
+ Language:		English, Swahili, Xhosa, Zulu
+ Actors:		Rowan Atkinson, Matthew Broderick, Niketa Calame-Harris, Jim Cummings
+ Plot:			A Lion cub crown prince is tricked by a treacherous uncle into thinking he caused his father's death and flees into exile in despair, only to learn in adulthood his identity and his responsibilities.
+
+################################################################
+
+
+Movie info:
+------------------------
+ Title:			Star Wars: Episode IV - A New Hope
+ Year:			1977
+ IMDB Rating:		8.6
+ Rotten Tomatoes Rating:92%
+ Country:		USA
+ Language:		English
+ Actors:		Mark Hamill, Harrison Ford, Carrie Fisher, Peter Cushing
+ Plot:			Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a Wookiee and two droids to save the galaxy from the Empire's world-destroying battle station, while also attempting to rescue Princess Leia from the mysterious Darth Vader.
+
+################################################################
+
+
+Movie info:
+------------------------
+ Title:			Starman
+ Year:			1984
+ IMDB Rating:		7.0
+ Rotten Tomatoes Rating:84%
+ Country:		USA
+ Language:		English
+ Actors:		Jeff Bridges, Karen Allen, Charles Martin Smith, Richard Jaeckel
+ Plot:			An alien takes the form of a young widow's husband and asks her to drive him from Wisconsin to Arizona. The government tries to stop them.
+
+################################################################
+
+
+Movie info:
+------------------------
+ Title:			Eternal Sunshine of the Spotless Mind
+ Year:			2004
+ IMDB Rating:		8.3
+ Rotten Tomatoes Rating:93%
+ Country:		USA
+ Language:		English
+ Actors:		Jim Carrey, Kate Winslet, Gerry Robert Byrne, Elijah Wood
+ Plot:			When their relationship turns sour, a couple undergoes a medical procedure to have each other erased from their memories.
+
+################################################################
+
+
+Movie info:
+------------------------
+ Title:			Eternal Sunshine of the Spotless Mind
+ Year:			2004
+ IMDB Rating:		8.3
+ Rotten Tomatoes Rating:93%
+ Country:		USA
+ Language:		English
+ Actors:		Jim Carrey, Kate Winslet, Gerry Robert Byrne, Elijah Wood
+ Plot:			When their relationship turns sour, a couple undergoes a medical procedure to have each other erased from their memories.
+
+################################################################
+
+
+Movie info:
+------------------------
+ Title:			Eternal Sunshine of the Spotless Mind
+ Year:			2004
+ IMDB Rating:		8.3
+ Rotten Tomatoes Rating:93%
+ Country:		USA
+ Language:		English
+ Actors:		Jim Carrey, Kate Winslet, Gerry Robert Byrne, Elijah Wood
+ Plot:			When their relationship turns sour, a couple undergoes a medical procedure to have each other erased from their memories.
+
+################################################################
+
+
+Movie info:
+------------------------
+ Title:			Eternal Sunshine of the Spotless Mind
+ Year:			2004
+ IMDB Rating:		8.3
+ Rotten Tomatoes Rating:93%
+ Country:		USA
+ Language:		English
+ Actors:		Jim Carrey, Kate Winslet, Gerry Robert Byrne, Elijah Wood
+ Plot:			When their relationship turns sour, a couple undergoes a medical procedure to have each other erased from their memories.
+
+################################################################
+
+
+Upcoming Events for talker:
+
+--------------
+ Venue:		Live Stream on Substream Instagram - https://www.instagram.com/substream/
+ Location:	Los Angeles CA United States
+ Date:		04/02/2020
+--------------
+ Venue:		Live Stream from COLLiDE inside Instagram - https://www.instagram.com/officialculturecollide/
+ Location:	Los Angeles CA United States
+ Date:		04/03/2020
+--------------
+ Venue:		Live Stream on Buzzbands LA Instagram - https://www.instagram.com/buzzbandsla/
+ Location:	Los Angeles CA United States
+ Date:		04/06/2020
+--------------
+ Venue:		Live Stream on Push-Up Bra LA Instagram - https://www.instagram.com/pushupbra.la/
+ Location:	Los Angeles CA United States
+ Date:		04/07/2020
+--------------
+ Venue:		talker's Birthday Live Stream - https://www.instagram.com/talkerceleste/
+ Location:	Los Angeles CA United States
+ Date:		04/08/2020
+--------------
+ Venue:		Live Stream from We Found New Music Instagram - https://www.instagram.com/wfnm/
+ Location:	Los Angeles CA United States
+ Date:		04/10/2020
+--------------
+ Venue:		Live Stream on Sofar Sounds SF Instagram - https://www.instagram.com/sofarsoundssf/
+ Location:	Los Angeles CA United States
+ Date:		04/15/2020
+
+################################################################
+
+
+Song info:
+
+ Artist(s):	Yung Bae, bbno$, Billy Marchiafava
+ Song:		Bad Boy
+ Preview:	https://p.scdn.co/mp3-preview/adfedd4442be743a7efba0b2ce7f3919270356df?cid=4c50b5a328214383a7b94f6c926ac908
+ Album:		Bad Boy
+
+################################################################
+
+
+Movie info:
+------------------------
+ Title:			Eternal Sunshine of the Spotless Mind
+ Year:			2004
+ IMDB Rating:		8.3
+ Rotten Tomatoes Rating:93%
+ Country:		USA
+ Language:		English
+ Actors:		Jim Carrey, Kate Winslet, Gerry Robert Byrne, Elijah Wood
+ Plot:			When their relationship turns sour, a couple undergoes a medical procedure to have each other erased from their memories.
+
+################################################################
+
