@@ -164,3 +164,71 @@ Movie info:
 
 ################################################################
 
+
+Song info:
+
+ Artist(s):	The Weeknd
+ Song:		True Colors
+ Preview:	N/A
+ Album:		Starboy
+
+################################################################
+
+
+Song info:
+
+ Artist(s):	The Weeknd
+ Song:		True Colors
+ Preview:	N/A
+ Album:		Starboy
+
+################################################################
+
+
+Song info:
+
+ Artist(s):	Backstreet Boys
+ Song:		I Want It That Way
+ Preview:	https://p.scdn.co/mp3-preview/e72a05dc3f69c891e3390c3ceaa77fad02f6b5f6?cid=4c50b5a328214383a7b94f6c926ac908
+ Album:		The Hits--Chapter One
+
+################################################################
+
+
+Movie info:
+------------------------
+ Title:			Arrival
+ Year:			2016
+ IMDB Rating:		7.9
+ Rotten Tomatoes Rating:94%
+ Country:		USA, Canada
+ Language:		English, Russian, Mandarin
+ Actors:		Amy Adams, Jeremy Renner, Forest Whitaker, Michael Stuhlbarg
+ Plot:			A linguist works with the military to communicate with alien lifeforms after twelve mysterious spacecraft appear around the world.
+
+################################################################
+
+
+Song info:
+
+ Artist(s):	Sam Smith
+ Song:		How Do You Sleep?
+ Preview:	N/A
+ Album:		How Do You Sleep?
+
+################################################################
+
+
+Movie info:
+------------------------
+ Title:			Contagion
+ Year:			2011
+ IMDB Rating:		6.7
+ Rotten Tomatoes Rating:85%
+ Country:		United Arab Emirates, USA
+ Language:		English, Mandarin, Cantonese
+ Actors:		Gwyneth Paltrow, Tien You Chui, Josie Ho, Daria Strokous
+ Plot:			Healthcare professionals, government officials and everyday people find themselves in the midst of a pandemic as the CDC works to find a cure.
+
+################################################################
+

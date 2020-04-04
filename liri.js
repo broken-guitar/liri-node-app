@@ -8,8 +8,11 @@ const open = require('open');
 const Spotify = require('node-spotify-api');
 const spotify = new Spotify(keys.spotify);
 
+const fromFile = true;
 const divider = "\n\n################################################################\n\n"
-var commandline = process.argv[2];
+var command = process.argv[2];
+var term = process.argv[3];
+
 var liri = [];
 
 liri.cmdList = [{ 
@@ -58,24 +61,7 @@ liri.showMenu = function() {
    inquirer.prompt(liri.cmdList)
       .then(answers => {
          // prompt user for band, song, or movie depending on list selection
-         switch (answers.selection) {
-            case "concert-this":
-               inquirer.prompt(liri.bandInput).then(answers => liri.getConcert(answers.artistName));
-               break;
-            case "spotify-this-song":
-               inquirer.prompt(liri.songInput).then(answers => liri.getSong(answers.songName));
-               break;
-            case "movie-this":
-               inquirer.prompt(liri.movieInput).then(answers => liri.getMovie(answers.movieTitle));
-               break;
-            case "do-what-it-says":
-               // doFile();
-               break;
-            case "quit":
-               break;
-            default:
-               break;
-         }
+         liri.cmdSwitch(answers.selection);
       });
 }
 
@@ -226,13 +212,74 @@ liri.appendLog = function(data) {
       if (err) throw err;
     });
 }
-// - - INITIALIZE
 
-liri.showMenu();
+liri.doFile = function() {
+   fs.readFile("random.txt", "utf8", (err, data) => {
+      if (err) throw err;
+      let cmd = data.split(" ")[0];
+      let arr = data.split(" ");
+      arr.splice(0,1);
+      let term = arr.join(" ");
+      liri.cmdSwitch(cmd, term);
+   });
+}
 
-// - - FUNCTIONS 
+liri.checkInput = function(cmd, term) {
+   cmd = (cmd) ? cmd.trim() : "";
+   term = (term) ? term.trim() : "";
+   // handle valid command/arguments,
+   // otherwise show usage text and inquirer menu interace to user
+   if(cmd === "do-what-it-says") {
+      liri.cmdSwitch(cmd, term);
+   } else if (cmd && term) {
+      liri.cmdSwitch(cmd, term);
+   } else {
+      console.log("\nUsage: node liri.js {concert-this|spotify-this-song|movie-this|do-what-it-says} <search term>");
+      console.log("Examples:");
+      console.log("\tnode liri.js concert-this Kishi Bashi");
+      console.log("\tnode liri.js spotify-this-song You've Got Time\r\n");
+      liri.showMenu();
+   }
+}
 
+// handle each command, if user doesn't provide a search term then ask for it
+liri.cmdSwitch = function(cmd, term, fromFile) {
+   switch (cmd) {
+      case "concert-this":
+         if (term) {liri.getConcert(term)}
+         else {
+            inquirer.prompt(liri.bandInput).then(answers => liri.getConcert(answers.artistName));
+         }
+         break;
+      case "spotify-this-song":
+         if (term) {
+            liri.getSong(term)}
+         else {
+            inquirer.prompt(liri.songInput).then(answers => liri.getSong(answers.songName));
+         }
+         break;
+      case "movie-this":
+         if (term) {liri.getMovie(term)}
+         else {
+            inquirer.prompt(liri.movieInput).then(answers => liri.getMovie(answers.movieTitle));
+         }
+         break;
+      case "do-what-it-says":
+         if(!fromFile) liri.doFile();
+         break;
+      case "quit":
+         break;
+      default:
+         liri.showMenu();
+         break;
+   }
+}
 
+// #### INITIALIZE 
+
+liri.checkInput(command, term);
+
+// ### FUNCTIONS 
 
 // check if string is empty
 function isEmpty(string) {
