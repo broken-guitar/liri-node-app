@@ -31,7 +31,7 @@ Commands | Description
 **Note**: If a command or argument is not provided, Liri will prompt the user with a command list and ask for search input.
 
 # Demo
-
+![liri-demo](https://user-images.githubusercontent.com/59757720/78717637-c6fc1d80-78d5-11ea-828f-df59aadeefa1.gif)
 # Built with
 - Node
 - JavaScript
