@@ -1,27 +1,41 @@
 # Liri Bot
 
-Liri makes it possible to use several APIs through a simple command line interface.
+Liri is a node app that makes it possible to use APIs through a simple command line interface.
 
 Users can use Liri to find information about upcoming concerts, songs, and movies. Search requests are entered at the terminal with a command/search term syntax or a menu-based terminal interface. Liri makes use of Band In Town, Spotify, the OMBD APIs.
 
-## Getting Started
+## Installation
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
-1. Clone or download this repo.
-2. Install Node
-3. Open a terminal window and navigate to project's folder on your machine. Enter "node liri.js".
-4. Make a menu selection, e.g., "concert-this", "spotify-this", movie-this"
-5. When prompted, input the name of a band/artist, song, or movie,
-6. Liri will return the result or error message to the console and log the results in a "log.txt" file.
+1. Install Node 
+2. Clone or download the repo.
+3. Open a terminal window and navigate to the repository folder on your machine.
+4. At the command prompt enter: `npm install`
 
-TODO Include screenshots, gifs or videos of the app functioning
+# Usage
 
-TODO Contain a link to a deployed version of the app
+```
+node liri.js [command] [search term]
+```
+Example:
+```
+node liri.js concert-this Taylor Swift
+```
 
-Clearly list the technologies used in the app
+Commands | Description
+---------|------------
+**concert-this**      | Queries the BandsinTown API for a list of upcoming concerts  
+**spotify-this-song** | Queries the Spotify API for song information.
+**movie-this**        | Queries the OMDB API for movie information.
+**do-what-it-says**   | Runs a liri command from a text file (random.txt) located in the project root folder.
+
+**Note**: If a command or argument is not provided, Liri will prompt the user with a command list and ask for search input.
+
+# Demo
+
+# Built with
 - Node
 - JavaScript
 - NPM modules: axios, node-spotify-api, open
 - APIs: OMDB, Bandintown
 
-Author: Me
+
