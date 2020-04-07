@@ -33,9 +33,15 @@ Commands | Description
 # Demo
 ![liri-demo](https://user-images.githubusercontent.com/59757720/78717637-c6fc1d80-78d5-11ea-828f-df59aadeefa1.gif)
 # Built with
-- Node
-- JavaScript
-- NPM modules: axios, node-spotify-api, open
-- APIs: OMDB, Bandintown
+* NodeJS
+* JavaScript
+* Bandsintown API
+* Spotify API
+* OMDB API
+* NPM axios
+* NPM inquirer
+* NPM moment
+* NPM open
 
-
+# Author
+David Flores
